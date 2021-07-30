@@ -18,5 +18,4 @@ func TestAnagram(t *testing.T) {
 			t.Fatalf("Anagram(%s, %s) should be %v, but is: %v", tt.a, tt.b, tt.want, got)
 		}
 	}
-
 }
