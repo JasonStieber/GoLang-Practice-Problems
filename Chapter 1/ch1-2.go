@@ -71,9 +71,7 @@ func problem14() {
 				if v > 1 {
 					fmt.Printf("The line %q is present in %q files \n", line, k)
 				}
-
 			}
-
 		}
 	}
 }
