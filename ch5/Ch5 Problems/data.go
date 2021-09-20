@@ -73,28 +73,3 @@ NAME=49 HREF="LineMode/Defaults/Distribution.html">
 anonymous FTP</A> , etc.</A>
 </DL>
 </BODY>`
-
-/*
-func TestCountElements(t *testing.T) {
-	type test = struct {
-		b    string
-		want map[string]int
-	}
-	for _, tt := range []test{
-		{[32]byte{0: 0b1}, [32]byte{0: 0}, 1},
-		{},
-		{[32]byte{1: 0b111}, [32]byte{3: 0b1011}, 6},
-	} {
-		if got := countBitDifferences(&tt.a, &tt.b); got != tt.want {
-			t.Fatalf("CountBitDifferences(%b, %b) should be %v, but is: %v", tt.a, tt.b, tt.want, got)
-		}
-	}
-}
-
-func TestOutline(t *testing.T) {
-	type test = struct {
-		a
-	}
-
-}
-*/
