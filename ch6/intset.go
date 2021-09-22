@@ -25,13 +25,20 @@ func (s *IntSet) Has(x int) bool {
 	return word < len(s.words) && s.words[word]&(1<<bit) != 0
 }
 
-// Add adds the non-negative value x to the set.
-func (s *IntSet) Add(x int) {
+// Add adds one or more non-negative value x to the set.
+func (s *IntSet) Add(x int, vals ...int) {
 	word, bit := x/64, uint(x%64)
 	for word >= len(s.words) {
 		s.words = append(s.words, 0)
 	}
 	s.words[word] |= 1 << bit
+	for _, val := range vals {
+		word, bit := val/64, uint(val%64)
+		for word >= len(s.words) {
+			s.words = append(s.words, 0)
+		}
+		s.words[word] |= 1 << bit
+	}
 }
 
 // UnionWith sets s to the union of s and t.
@@ -71,3 +78,42 @@ func (s *IntSet) String() string {
 }
 
 //!-string
+
+// return teh number of elements in intset
+func (s *IntSet) Len() int {
+	var c int
+	for _, word := range s.words {
+		for i := 0; i < 64; i++ {
+			if word&(1<<uint(i)) != 0 {
+				fmt.Printf("The word %64b, should have the %vth bit set\n", word, i)
+				c++
+			}
+		}
+	}
+	return c
+}
+
+// remove x from teh set
+func (s *IntSet) Remove(x int) {
+	word, bit := x/64, uint(x%64)
+	if len(s.words) > word {
+		s.words[word] &^= (1 << bit)
+	}
+}
+
+// remove all elements from the set
+func (s *IntSet) Clear() {
+	s.words = make([]uint64, 0)
+}
+
+// return a copy of the set
+func (s *IntSet) Copy() *IntSet {
+	var n = new(IntSet)
+	for word, bits := range s.words {
+		for word >= len(n.words) {
+			n.words = append(n.words, 0)
+		}
+		n.words[word] = bits
+	}
+	return n
+}
